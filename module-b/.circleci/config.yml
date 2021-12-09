@@ -1,11 +1,8 @@
 # Config dedicated for module B
 # All the resources must be prefixed with `module-b-` to avoid conflicts
 
-version: 2.1
-
 orbs:
-  # Note: We are using an older version of hello-build, whereas module A uses the latest
-  module-b-hello-build: circleci/hello-build@0.0.13
+  module-b-hello-build: circleci/hello-build@0.0.14
 
 jobs:
   module-b-build:
