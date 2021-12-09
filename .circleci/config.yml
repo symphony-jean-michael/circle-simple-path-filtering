@@ -70,7 +70,10 @@ workflows:
   module-a-b:
     when: << pipeline.parameters.run-module-b >>
     jobs:
-      - module-a
+      - module-a:
+          filters:
+            tags:
+              only: /^v.*/
       - module-b:
           requires:
             - module-a
