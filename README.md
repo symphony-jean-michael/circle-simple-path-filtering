@@ -6,3 +6,4 @@ Everything is implemented inside a single config `.circleci/config.yml`. The dyn
 
 
 Hello circle ci academy!
+test
