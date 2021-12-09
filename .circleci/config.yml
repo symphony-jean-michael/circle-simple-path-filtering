@@ -52,6 +52,9 @@ workflows:
           mapping: |
             .* run-setup false
             .* run-module-b true
+          filters:
+            tags:
+              only: /^v.*/
           #   module-a/.* run-module-a true
           #   module-b/.* run-module-b true
   module-a:
@@ -67,16 +70,10 @@ workflows:
 #      - module-b-post:
 #          requires:
 #            - module-b
-  build-and-publish:
+  module-a-b:
+    when: << pipeline.parameters.run-module-b >>
     jobs:
       - module-a
       - module-b:
           requires:
             - module-a
-  module-a-b:
-    when: << pipeline.parameters.run-module-b >>
-    jobs:
-      - build-and-publish:
-          filters:
-            tags:
-              only: /^v.*/
