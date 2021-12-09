@@ -29,7 +29,7 @@ jobs:
       - run: cat .circleci/generated_config.yml
       - continuation/continue:
           configuration_path: .circleci/generated_config.yml # use newly generated config to continue
-          parameters: '{run-module-b: true}'
+          parameters: "{'run-module-b': 'true'}"
   module-a:
     docker:
       - image: alpine
