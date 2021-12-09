@@ -16,13 +16,3 @@ jobs:
           to: A
       - run: echo 'Hello world from module A! :3'
 
-workflows:
-  module-a-workflow:
-    jobs:
-      - common-pre
-      - module-a-build:
-          requires:
-            - common-pre
-      - module-a-hello-build/hello-build:
-          requires:
-            - common-pre

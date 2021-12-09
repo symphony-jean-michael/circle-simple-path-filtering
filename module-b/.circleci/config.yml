@@ -16,28 +16,9 @@ jobs:
           to: B
       - run: echo 'Hello, from module B! :3'
 
-  module-b-postrun:
-    docker:
-      - image: alpine
-    steps:
-      - run: echo 'Another job for B! :3'
-
 workflows:
-  module-b-workflow-x:
-    jobs:
-      - common-pre
-      - module-b-build:
-          requires:
-            - common-pre
-      - module-b-postrun:
-          requires:
-            - module-b-build
-  module-b-workflow-y:
-    jobs:
-      - module-b-hello-build/hello-build
-      #test
   module-a-b:
-    when: << pipeline.parameters.run-module-b >>
+    # when: << pipeline.parameters.run-module-b >>
     jobs:
       - module-a-build
       - module-b-build:
