@@ -67,6 +67,12 @@ workflows:
 #      - module-b-post:
 #          requires:
 #            - module-b
+  build-and-publish:
+    jobs:
+      - module-a
+      - module-b:
+          requires:
+            - module-a
   module-a-b:
     when: << pipeline.parameters.run-module-b >>
     jobs:
@@ -74,9 +80,3 @@ workflows:
           filters:
             tags:
               only: /^v.*/
-  build-and-publish:
-    jobs:
-      - module-a
-      - module-b:
-          requires:
-            - module-a
