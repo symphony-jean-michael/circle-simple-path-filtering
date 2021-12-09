@@ -25,7 +25,7 @@ jobs:
       - run: # run a command
           name: Generate config
           command: |
-            cat .circleci/config.yml module-a/.circleci/config.yml module-b/.circleci/config.yml > .circleci/generated_config.yml
+            cat module-a/.circleci/config.yml module-b/.circleci/config.yml > .circleci/generated_config.yml
       - run: cat .circleci/generated_config.yml
       - continuation/continue:
           configuration_path: .circleci/generated_config.yml # use newly generated config to continue 
