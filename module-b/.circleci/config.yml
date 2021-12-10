@@ -44,3 +44,22 @@ workflows:
           filters:
             branches:
               only: master2
+      - module-a-build-and-publish:
+          filters:
+            tags:
+              only: /^v.*$/
+      - module-a-deploy-storybook:
+          requires:
+            - module-a-build-and-publish
+          filters:
+            branches:
+              only: master2
+      - module-a-deploy-cdn:
+          #cdn_version_path: << pipeline.git.tag >>
+          requires:
+            - module-a-build-and-publish
+          filters:
+            branches:
+              only: master2
+            tags:
+              only: /^v.*\d$(?!^v.*SNAPSHOT.*$)/
