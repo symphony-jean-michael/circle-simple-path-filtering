@@ -34,7 +34,7 @@ jobs:
       - run: echo '[A] RUN module-a-deploy-cdn !!!'
 
 workflows:
-  modal-a-build:
+  module-a-build:
     jobs:
       - module-a-build-and-publish:
           filters:
@@ -47,7 +47,7 @@ workflows:
             branches:
               only: master2
       - module-a-deploy-cdn:
-          cdn_version_path: << pipeline.git.tag >>
+          #cdn_version_path: << pipeline.git.tag >>
           requires:
             - module-a-build-and-publish
           filters:
