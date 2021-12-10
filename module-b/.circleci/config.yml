@@ -27,7 +27,7 @@ jobs:
   module-b-deploy-storybook:
     <<: *defaults
     steps:
-      - run: echo '[B] RUN module-b-deploy-storybook !!!'
+      - run: echo '[B] RUN module-b-deploy-storybook  !!!'
 
 workflows:
   # module-a-b:
