@@ -37,7 +37,7 @@ workflows:
   #    - module-b-build:
   #        requires:
   #          - module-a-build
-  build:
+  module-b-build:
     jobs:
       - module-b-build-and-publish:
           requires:

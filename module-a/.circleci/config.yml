@@ -34,7 +34,7 @@ jobs:
       - run: echo '[A] RUN module-a-deploy-cdn !!!'
 
 workflows:
-  build:
+  modal-a-build:
     jobs:
       - module-a-build-and-publish:
           filters:
