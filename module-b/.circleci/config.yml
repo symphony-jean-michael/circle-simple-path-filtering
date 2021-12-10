@@ -11,8 +11,6 @@ jobs:
     docker:
       - image: alpine
     steps:
-      - common-say-hello:
-          to: B
       - run: echo 'Hello, from module B! :3'
 
 workflows:
