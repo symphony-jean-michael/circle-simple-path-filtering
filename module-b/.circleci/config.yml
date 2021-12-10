@@ -11,6 +11,7 @@ defaults: &defaults
 
 
 orbs:
+  node: circleci/node@2.1
   module-b-hello-build: circleci/hello-build@0.0.14
 
 jobs:
