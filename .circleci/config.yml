@@ -22,7 +22,7 @@ jobs:
     executor: continuation/default
     steps:
       - checkout # checkout code
-      - run: xargs -a "module-a/.circleci/config.yml module-b/.circleci/config.yml" yq -y -s 'reduce .[] as $item ({}; . * $item)' | tee .circleci/generated_config.yml
+      #- run: xargs -a "module-a/.circleci/config.yml module-b/.circleci/config.yml" yq -y -s 'reduce .[] as $item ({}; . * $item)' | tee .circleci/generated_config.yml
       #- run: # run a command
       #    name: Generate config
       #    command: |
