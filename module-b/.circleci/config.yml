@@ -3,6 +3,13 @@
 
 version: 2.1
 
+# Anchors
+defaults: &defaults
+  executor:
+    name: node/default
+    tag: 'lts'
+
+
 orbs:
   module-b-hello-build: circleci/hello-build@0.0.14
 
@@ -12,12 +19,34 @@ jobs:
       - image: alpine
     steps:
       - run: echo 'Hello, from module B! :3'
+  module-b-build-and-publish:
+    <<: *defaults
+    steps:
+      - run: echo '[B] RUN module-b-build-and-publish !!!'
+  module-b-deploy-storybook:
+    <<: *defaults
+    steps:
+      - run: echo '[B] RUN module-b-deploy-storybook !!!'
 
 workflows:
-  module-a-b:
+  # module-a-b:
     # when: << pipeline.parameters.run-module-b >>
+  #  jobs:
+  #    - module-a-build
+  #    - module-b-build:
+  #        requires:
+  #          - module-a-build
+  build:
     jobs:
-      - module-a-build
-      - module-b-build:
+      - modal-b-build-and-publish:
           requires:
-            - module-a-build
+            - modal-b-build-and-publish
+          filters:
+            tags:
+              only: /^v.*/
+      - module-b-deploy-storybook:
+          requires:
+            - module-b-build-and-publish
+          filters:
+            branches:
+              only: master2
