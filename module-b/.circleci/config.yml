@@ -38,9 +38,9 @@ workflows:
   #          - module-a-build
   build:
     jobs:
-      - modal-b-build-and-publish:
+      - module-b-build-and-publish:
           requires:
-            - modal-b-build-and-publish
+            - module-b-build-and-publish
           filters:
             tags:
               only: /^v.*/
