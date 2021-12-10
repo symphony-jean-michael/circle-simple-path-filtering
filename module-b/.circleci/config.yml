@@ -30,14 +30,7 @@ jobs:
       - run: echo '[B] RUN module-b-deploy-storybook  !!!'
 
 workflows:
-  # module-a-b:
-    # when: << pipeline.parameters.run-module-b >>
-  #  jobs:
-  #    - module-a-build
-  #    - module-b-build:
-  #        requires:
-  #          - module-a-build
-  module-b-workflow:
+  module-workflow:
     jobs:
       - module-b-build-and-publish:
           requires:
