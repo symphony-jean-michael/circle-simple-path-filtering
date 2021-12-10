@@ -1,5 +1,5 @@
 # Config dedicated for module B
-# All the resources must be prefixed with `module-b-` to avoid conflicts
+# All the resources must be prefixed with `module-b-` to avoid conflicts 
 
 version: 2.1
 
