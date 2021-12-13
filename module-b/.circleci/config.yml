@@ -29,11 +29,7 @@ jobs:
       - run: yarn
       - run: yarn prebuild
       - run: echo '[B] RUN module-b-build-and-publish !!!'
-      - run:
-          name: Publish Module-B
-          command: |
-            cd module-b
-            bash ./publish.sh
+      - run: bash ./publish.sh
   module-b-deploy-storybook:
     <<: *defaults
     steps:
