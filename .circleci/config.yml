@@ -2,7 +2,7 @@ version: 2.1
 
 setup: << pipeline.parameters.run-setup >>
 
-# the continuation orb is required in order to use dynamic configuration
+# The continuation orb is required in order to use dynamic configuration
 orbs:
   continuation: circleci/continuation@0.2.0
 
@@ -21,68 +21,22 @@ jobs:
   setup:
     executor: continuation/default
     steps:
-      - checkout # checkout code
-      # Install "circleci-config-merge"
+      - checkout
       - run:
           name: Install 'circleci-config-merge'
           command: |
               mkdir tools
               curl -L https://github.com/suzuki-shunsuke/circleci-config-merge/releases/download/v1.1.1/circleci-config-merge_1.1.1_linux_amd64.tar.gz | tar -xz -C ./tools/
           when: always
-      # - run: brew install suzuki-shunsuke/circleci-config-merge/circleci-config-merge
-      - run: ./tools/circleci-config-merge merge module-a/.circleci/config.yml module-b/.circleci/config.yml > .circleci/generated_config.yml
-      #- run: # run a command
-      #    name: Generate config
-      #    command: |
-      #      cat module-a/.circleci/config.yml module-b/.circleci/config.yml > .circleci/generated_config.yml
-      #- run: yq eval-all '. as $item ireduce ({}; . * $item )' module-a/.circleci/config.yml module-b/.circleci/config.yml >> .circleci/generated_config.yml
+      - run:
+          name: Generate config
+          command: |
+            ./tools/circleci-config-merge merge module-a/.circleci/config.yml module-b/.circleci/config.yml > .circleci/generated_config.yml
       - run: cat .circleci/generated_config.yml
       - continuation/continue:
           configuration_path: .circleci/generated_config.yml # use newly generated config to continue
           # parameters: "{'run-module-b': 'true'}"
-  module-a:
-    docker:
-      - image: alpine
-    steps:
-      - checkout
-      - run: "echo 'Hello from module A!'"
-      - run: cat module-a/README.md
-
-  module-b:
-    machine: true
-    steps:
-      - checkout
-      - run: "echo 'Hello from module B!'"
-      - run: cat module-b/README.md
-
-  module-b-post:
-    docker:
-      - image: alpine
-    steps:
-      - run: "echo 'Continuing module B'"
-      - run: env
-
 workflows:
   setup:
     jobs:
       - setup
-  module-a:
-    when: << pipeline.parameters.run-module-a >>
-    jobs:
-      - module-a
-#  module-b:
-#    when: << pipeline.parameters.run-module-b >>
-#    jobs:
-#      - module-b:
-#          requires:
-#            - module-a
-#      - module-b-post:
-#          requires:
-#            - module-b
-  module-a-b:
-    when: << pipeline.parameters.run-module-b >>
-    jobs:
-      - module-a
-      - module-b:
-          requires:
-            - module-a

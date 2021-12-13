@@ -23,7 +23,15 @@ jobs:
   module-b-build-and-publish:
     <<: *defaults
     steps:
+      - checkout
+      - run: yarn
+      - run: yarn prebuild
       - run: echo '[B] RUN module-b-build-and-publish !!!'
+      - run:
+          name: Publish Module-B
+          command: |
+            cd module-b
+            bash ./publish.sh
   module-b-deploy-storybook:
     <<: *defaults
     steps:
@@ -43,4 +51,4 @@ workflows:
             - module-b-build-and-publish
           filters:
             branches:
-              only: master2
+              only: master3

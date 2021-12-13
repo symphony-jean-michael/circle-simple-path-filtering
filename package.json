@@ -1,0 +1,11 @@
+{
+    "name": "@jmlpoc/poc",
+    "private": true,
+    "version": "1.0.0",
+    "description": "Monorepo with CircleCI",
+    "workspaces": [
+      "module-*"
+    ],
+    "license": "ISC"
+  }
+
