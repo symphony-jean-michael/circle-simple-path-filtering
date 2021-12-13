@@ -22,8 +22,15 @@ jobs:
     executor: continuation/default
     steps:
       - checkout # checkout code
-      - run: brew install suzuki-shunsuke/circleci-config-merge/circleci-config-merge
-      - run: circleci-config-merge merge module-a/.circleci/config.yml module-b/.circleci/config.yml > .circleci/generated_config.yml
+      # Install "circleci-config-merge"
+      - run:
+          name: Install 'circleci-config-merge'
+          command: |
+              mkdir tools
+              curl -L https://github.com/suzuki-shunsuke/circleci-config-merge/releases/download/v1.1.1/circleci-config-merge_1.1.1_linux_amd64.tar.gz | tar -xz -C ./tools/
+          when: always
+      # - run: brew install suzuki-shunsuke/circleci-config-merge/circleci-config-merge
+      - run: ./tools/circleci-config-merge merge module-a/.circleci/config.yml module-b/.circleci/config.yml > .circleci/generated_config.yml
       #- run: # run a command
       #    name: Generate config
       #    command: |
