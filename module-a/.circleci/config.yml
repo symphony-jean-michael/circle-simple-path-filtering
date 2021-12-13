@@ -20,6 +20,7 @@ jobs:
     steps:
       - checkout
       - run: yarn
+      - run: cd module-a
       - run: yarn prebuild
       - run: echo '[A] RUN module-b-build-and-publish !!!'
       - run:
