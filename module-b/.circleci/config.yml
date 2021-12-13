@@ -22,10 +22,11 @@ jobs:
       - run: echo 'Hello, from module B! :3'
   module-b-build-and-publish:
     <<: *defaults
+    working_directory: ~/jmlpoc/module-b
     steps:
-      - checkout
+      - checkout:
+          path: ~/jmlpoc # Root of the project
       - run: yarn
-      - run: cd module-b
       - run: yarn prebuild
       - run: echo '[B] RUN module-b-build-and-publish !!!'
       - run:
