@@ -22,11 +22,13 @@ jobs:
     executor: continuation/default
     steps:
       - checkout # checkout code
+      - run: brew install suzuki-shunsuke/circleci-config-merge/circleci-config-merge
+      - run: circleci-config-merge merge module-a/.circleci/config.yml module-b/.circleci/config.yml > .circleci/generated_config.yml
       #- run: # run a command
       #    name: Generate config
       #    command: |
       #      cat module-a/.circleci/config.yml module-b/.circleci/config.yml > .circleci/generated_config.yml
-      - run: yq eval-all '. as $item ireduce ({}; . * $item )' module-a/.circleci/config.yml module-b/.circleci/config.yml >> .circleci/generated_config.yml
+      #- run: yq eval-all '. as $item ireduce ({}; . * $item )' module-a/.circleci/config.yml module-b/.circleci/config.yml >> .circleci/generated_config.yml
       - run: cat .circleci/generated_config.yml
       - continuation/continue:
           configuration_path: .circleci/generated_config.yml # use newly generated config to continue
